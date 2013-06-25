@@ -1,0 +1,19 @@
+body {
+
+}
+
+#page-wrapper {
+    width: 1000px;
+    margin: 100px auto;
+}
+
+#main-canvas-wrapper {
+    width: 800px;
+    height: 600px;
+    margin: 0 auto;
+    background: #f4f4f4;
+}
+
+#main-canvas {
+    border: 1px solid #ccc;
+}
