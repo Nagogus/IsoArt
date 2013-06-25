@@ -16,14 +16,15 @@ define(function() {
 
         function fillObject(gObject) {
             drawingList.length = 0;
+            drawingList.push(ctx.fill);
             drawingList.push(ctx.stroke);
             gObject.draw.call(this);
         }
 
         function draw() {
             if(drawingList.length > 0) {
-                drawingList.forEach(function(index, func) {
-                    func();
+                drawingList.forEach(function(func, index) {
+                    func.call(ctx);
                 });
             }
         }
