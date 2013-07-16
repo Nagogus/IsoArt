@@ -8,22 +8,29 @@ define(function() {
 
     function Drawer(ctx) {
 
-        var drawingList = [];
+        var _drawingList = [],
+            _currentObject;
 
         function init() {
 
         }
 
-        function fillObject(gObject) {
-            drawingList.length = 0;
-            drawingList.push(ctx.fill);
-            drawingList.push(ctx.stroke);
-            gObject.draw.call(this);
+        function drawObject(gObject) {
+            _currentObject = gObject;
+            _currentObject.draw.call(this);
         }
 
-        function draw() {
-            if(drawingList.length > 0) {
-                drawingList.forEach(function(func, index) {
+        function fillObject() {
+            _drawingList.push(ctx.fill);
+        }
+
+        function strokeObject() {
+            _drawingList.push(ctx.stroke);
+        }
+
+        function render() {
+            if(_drawingList.length > 0) {
+                _drawingList.forEach(function(func) {
                     func.call(ctx);
                 });
             }
@@ -31,9 +38,13 @@ define(function() {
 
         init();
 
+        this.drawObject = drawObject;
+
         this.fillObject = fillObject;
 
-        this.draw = draw;
+        this.strokeObject = strokeObject;
+
+        this.render = render;
 
         this.ctx = ctx;
     }

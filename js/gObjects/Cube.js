@@ -5,8 +5,10 @@
  * Time: 6:44 PM
  */
 define(function() {
+
     function draw() {
         var ctx = this.ctx;
+
         ctx.fillStyle = '#f00';
         ctx.strokeStyle = '#000';
 
@@ -17,7 +19,7 @@ define(function() {
         ctx.lineTo(100, 150);
         ctx.lineTo(100, 100);
         ctx.closePath();
-        this.draw();
+        this.render();
 
         ctx.beginPath();
         ctx.moveTo(100, 100);
@@ -25,7 +27,7 @@ define(function() {
         ctx.lineTo(75, 125);
         ctx.lineTo(100, 150);
         ctx.closePath();
-        this.draw();
+        this.render();
 
         ctx.beginPath();
         ctx.moveTo(100, 150);
@@ -33,7 +35,7 @@ define(function() {
         ctx.lineTo(125, 125);
         ctx.lineTo(150, 150);
         ctx.closePath();
-        this.draw();
+        this.render();
 
         ctx.beginPath();
         ctx.moveTo(150, 150);
@@ -41,7 +43,7 @@ define(function() {
         ctx.lineTo(125, 75);
         ctx.lineTo(150, 100);
         ctx.closePath();
-        this.draw();
+        this.render();
 
         ctx.beginPath();
         ctx.lineTo(150, 100);
@@ -49,7 +51,7 @@ define(function() {
         ctx.lineTo(75, 75);
         ctx.lineTo(100, 100);
         ctx.closePath();
-        this.draw();
+        this.render();
 
         ctx.beginPath();
         ctx.lineTo(75, 75);
@@ -58,8 +60,9 @@ define(function() {
         ctx.lineTo(75, 125);
         ctx.lineTo(75, 75);
         ctx.closePath();
-        this.draw();
+        this.render();
     }
+
     return {
         draw: draw
     }

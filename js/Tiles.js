@@ -7,16 +7,23 @@
 define([], function () {
     function Tiles() {
         var mainCanvasId = 'main-canvas',
+
             c = document.getElementById(mainCanvasId),
+
             ctx = c.getContext("2d"),
-            tiles = [];
+
+            tiles = [],
+
+            fieldSize = Tiles.TILES_AMOUNT * Tiles.TILE_SIZE,
+
+            fieldDiagonal = fieldSize * Math.pow(2, 1/2);
 
         function fillTestTiles(tiles) {
             var i, j, tile;
-            for (i = 0; i < 10; ++i) {
+            for (i = 0; i < Tiles.TILES_AMOUNT; ++i) {
                 tiles.push([]);
-                for (j = 0; j < 10; ++j) {
-                    tile = { x: j * 50, y: i * 50 };
+                for (j = 0; j < Tiles.TILES_AMOUNT; ++j) {
+                    tile = { x: j * Tiles.TILE_SIZE, y: i * Tiles.TILE_SIZE };
                     tiles[i].push(tile);
                 }
             }
@@ -24,20 +31,48 @@ define([], function () {
 
         fillTestTiles(tiles);
 
+        this.c = c;
+
         this.ctx = ctx;
 
         this.tiles = tiles;
+
+        this.fieldDiagonal = fieldDiagonal;
     }
 
     Tiles.TILE_SIZE = 50;
+    Tiles.TILES_AMOUNT = 10;
+    Tiles.ISOMETRIC_X_SCALE_FACTOR = 1;
+    Tiles.ISOMETRIC_Y_SCALE_FACTOR = 0.8;
+
+    Tiles.prototype.showDebugGrid = function() {
+        var ctx = this.ctx;
+        ctx.strokeStyle = '#ccc';
+        ctx.beginPath();
+        ctx.moveTo(this.c.width/2, 0);
+        ctx.lineTo(this.c.width/2, this.c.height);
+        ctx.closePath();
+        ctx.stroke();
+
+        ctx.beginPath();
+        ctx.moveTo(0,this.c.height/2);
+        ctx.lineTo(this.c.width, this.c.height/2);
+        ctx.closePath();
+        ctx.stroke();
+    };
 
     Tiles.prototype.toIsometric = function() {
-        var ctx = this.ctx;
+        var ctx = this.ctx,
+            //Translate values to position field in center
+            translateX = this.c.width*Tiles.ISOMETRIC_X_SCALE_FACTOR / 2,
+            translateY = (this.c.height - this.fieldDiagonal*Tiles.ISOMETRIC_Y_SCALE_FACTOR)/2;
+
         ctx.save();
 
         // change projection to isometric view
-        ctx.translate(400, 200);
-        ctx.scale(1, 0.5);
+        ctx.translate(translateX, translateY);
+        ctx.translate(0,0);
+        ctx.scale(Tiles.ISOMETRIC_X_SCALE_FACTOR, Tiles.ISOMETRIC_Y_SCALE_FACTOR);
         ctx.rotate(45 * Math.PI / 180);
     };
 
@@ -53,6 +88,7 @@ define([], function () {
             x, y;
 
         ctx.fillStyle = '#007B0C';
+        ctx.strokeStyle = '#000000';
 
         for (y = 0; y < tiles.length; ++y) {
             line = tiles[y];
