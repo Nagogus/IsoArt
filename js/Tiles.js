@@ -45,21 +45,6 @@ define([], function () {
     Tiles.ISOMETRIC_X_SCALE_FACTOR = 1;
     Tiles.ISOMETRIC_Y_SCALE_FACTOR = 0.8;
 
-    Tiles.prototype.showDebugGrid = function() {
-        var ctx = this.ctx;
-        ctx.strokeStyle = '#ccc';
-        ctx.beginPath();
-        ctx.moveTo(this.c.width/2, 0);
-        ctx.lineTo(this.c.width/2, this.c.height);
-        ctx.closePath();
-        ctx.stroke();
-
-        ctx.beginPath();
-        ctx.moveTo(0,this.c.height/2);
-        ctx.lineTo(this.c.width, this.c.height/2);
-        ctx.closePath();
-        ctx.stroke();
-    };
 
     Tiles.prototype.toIsometric = function() {
         var ctx = this.ctx,
@@ -71,7 +56,6 @@ define([], function () {
 
         // change projection to isometric view
         ctx.translate(translateX, translateY);
-        ctx.translate(0,0);
         ctx.scale(Tiles.ISOMETRIC_X_SCALE_FACTOR, Tiles.ISOMETRIC_Y_SCALE_FACTOR);
         ctx.rotate(45 * Math.PI / 180);
     };

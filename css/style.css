@@ -4,12 +4,12 @@ body {
 
 #page-wrapper {
     width: 1000px;
-    margin: 100px auto;
+    margin: 10px auto;
 }
 
 #main-canvas-wrapper {
     width: 800px;
-    height: 600px;
+    height: 800px;
     margin: 0 auto;
     background: #f4f4f4;
 }

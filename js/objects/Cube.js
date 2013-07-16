@@ -4,7 +4,7 @@
  * Date: 6/25/13
  * Time: 6:44 PM
  */
-define(function() {
+define('objects/Cube', [], function() {
 
     function draw() {
         var ctx = this.ctx;
